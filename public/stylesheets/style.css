@@ -227,11 +227,15 @@ body {
 }
 
 #pickUpLine {
+  
   background-color: rgba(255, 255, 255, 0.9);
-  margin: 2%;
+  margin: 1.5%;
   padding: 1%;
   width: 40%;
   border-radius: 10px;
+}
+
+#pickUpLine a {
   
 }
 
@@ -246,9 +250,9 @@ body {
   align-items: center;
 }
 
-/*#pickUpLine h1 {
+/* #pickUpLine h1 {
   text-align: center;
-}*/
+}  */
 
 .quote {
   font-size: 2em;
@@ -261,20 +265,19 @@ body {
   width: 100%;
 }
 
-
 .content {
   font-size: 3em;
+  margin: 0;
+  padding: 25px;
   color: rgba(102, 107, 230, 0.6);
-  margin: 3%;
-  padding: 3%;
   font-family: 'Galada', cursive;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.125em;
 }
 
 .pickup-info {
   display: flex;
   justify-content: space-between;
-  padding: 3%;
+  padding: 1%;
 }
 
 .pickup-info a {
@@ -299,8 +302,6 @@ body {
   justify-content: center;
   margin-top: 200px;
 }
-
-
 
 .post-new form {
   display: flex;
@@ -430,5 +431,64 @@ body {
   border-radius: 20px;
   font-size: 1.4em;
 }
+
+.link {
+  display: flex;
+  margin: 15px;
+  justify-content: space-evenly;
+}
+
+.link a{
+  margin: 15px;
+  text-decoration: none;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-size: 2em;
+}
+
+.profile {
+  font-size: 1.5em;
+  font-weight: 200;
+  font-family: 'Raleway', sans-serif;
+  color: white;
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0.05em;
+  position: absolute;
+  top: 12%; 
+}
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.profile-username {
+  font-size: 4em;
+  font-family: 'Galada', cursive;;
+  color: white;
+  position: fixed;
+  left: 100px;
+  top: 80px
+}
+
+.profile-edit {
+  font-size: 1.5em;
+  font-weight: 100;
+  font-family: 'Raleway', sans-serif;
+  color: rgba(150, 150, 150);
+  text-decoration: none;
+}
+
+.profile-content {
+  display: flex;
+  align-items: center;
+}
+
+
+
+
 
 /*# sourceMappingURL=style.css.map */
