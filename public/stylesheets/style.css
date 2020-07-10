@@ -218,7 +218,8 @@ body {
 
 #post-call {
   position: fixed;
-  right: -97%;
+  /* left: 97%; */
+  right: -125%;
   bottom: 3%;
 }
 
