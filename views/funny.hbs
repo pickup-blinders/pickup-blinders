@@ -1,124 +1,121 @@
-
 {{!-- Id the User that is logged in --}}
-<div class ="feed">
-<a class="home" href="/">
-<span>Home</span></a>
-<a class="logout" href="/auth/logout"><span>Logout</span></a>
+<div class="feed">
+  <a class="home" href="/">
+    <span>Home</span></a>
+  <a class="logout" href="/auth/logout"><span>Logout</span></a>
 
+  <nav id="feed">
+    <a href="/feed/funny/best">Funny</a>
+    <a href="/feed/tinder/best">Tinder</a>
+    <a href="/feed/cute/best">Cute</a>
+    <a href="/feed/smart/best">Smart</a>
+      <div id="myProfile">
+    <a href="/profile_posts/{{myProfile}}">My Profile</a>
+  </div>
+  </nav>
 
-
-<nav id="feed">
-  <a href="/feed/funny/best">Funny</a>
-  <a href="/feed/tinder/best">Tinder</a>
-  <a href="/feed/cute/best">Cute</a>
-  <a href="/feed/smart/best">Smart</a>
-</nav>
-
-
-
-<div id="filter">
-  <a href="/feed/funny/best">Best</a>
-  <span>|</span>
-  <a href="/feed/funny/newest">Newest</a>
-</div>
-
-
-<a href="/profile_posts/{{myProfile}}">My Profile</a>
-
-
-<h3 id="post-call">
-  <a href="/new"><img class="image-feather" src="https://www.seekpng.com/png/full/19-196319_clipart-of-quill-pen-icon-png-feather-icon.png"></a>
-</h3>
-
-{{#each post}}
-
-
-<div id="pickUpLine">
-
-  <div class ="content-votes">
-
-
-  
-  {{#if voted}}
-  <button class="upVote {{this._id}}" disabled id={{this._id}} score={{this.score}}> Upvote </button>
-  <span>{{score}}</span>
-  <button class="downVote {{this._id}}" disabled id={{this._id}} score={{this.score}}>Downvote</button>
-  {{else}}
-  <button class="upVote {{this._id}}" id={{this._id}} score={{this.score}}>Upvote</button>
-  {{score}}
-  <button class="downVote {{this._id}}" id={{this._id}} score={{this.score}}>Downvote</button>
-  {{/if}}
-
-
-  <h1 class="content">
-     {{content}}
-  </h1>
-
+  <div id="filter">
+    <a href="/feed/funny/best">Best</a>
+    <span>|</span>
+    <a href="/feed/funny/newest">Newest</a>
   </div>
 
- <div class = "pickup-info">
- 
-  
-  <a class="username" href="/profile_posts/{{userid._id}}"> {{userid.username}}</a>
-  {{!-- <div>{{created_at}}</div> --}}
 
-  <a href="/comments/{{this._id}}"><img class ="comment-image" src="https://www.seekpng.com/png/detail/119-1196181_comment-comment-icon-png-gray.png"></a>
+  <h3 id="post-call">
+    <a href="/new"><img class="image-feather"
+        src="https://www.seekpng.com/png/full/19-196319_clipart-of-quill-pen-icon-png-feather-icon.png"></a>
+  </h3>
 
-
-
- </div>
-  
+  {{#each post}}
 
 
-</div>
-{{/each}}
+  <div id="pickUpLine">
 
-<script>
-  // Ajax && Axios search
-  // axios.get("/posts").then(responseServer=>{
-  //   console.log(responseServer.data)
-  // })
+    <div class="content-votes">
 
-  // Button for Voting Down
-  function voteDown(e) {
-    axios.post(`/downvote/${e.target.id}`).then(response => {
 
-      document.getElementsByClassName(e.target.id)[0].innerHTML = response.data
-      
-      //  document.getElementById(e.target.id)[0].innerHTML = response.data
-      
-      const buttons = document.getElementsByClassName(e.target.id);
 
-      [...buttons].forEach( el => {
-        el.disabled = true ;
+      {{#if voted}}
+      <button class="upVote {{this._id}}" disabled id={{this._id}} score={{this.score}}> Upvote </button>
+      <span>{{score}}</span>
+      <button class="downVote {{this._id}}" disabled id={{this._id}} score={{this.score}}>Downvote</button>
+      {{else}}
+      <button class="upVote {{this._id}}" id={{this._id}} score={{this.score}}>Upvote</button>
+      {{score}}
+      <button class="downVote {{this._id}}" id={{this._id}} score={{this.score}}>Downvote</button>
+      {{/if}}
+
+
+      <h1 class="content">
+        {{content}}
+      </h1>
+
+    </div>
+
+    <div class="pickup-info">
+
+
+      <a class="username" href="/profile_posts/{{userid._id}}"> {{userid.username}}</a>
+      {{!-- <div>{{created_at}}</div> --}}
+
+      <a href="/comments/{{this._id}}"><img class="comment-image"
+          src="https://www.seekpng.com/png/detail/119-1196181_comment-comment-icon-png-gray.png"></a>
+
+
+
+    </div>
+
+
+
+  </div>
+  {{/each}}
+
+  <script>
+    // Ajax && Axios search
+    // axios.get("/posts").then(responseServer=>{
+    //   console.log(responseServer.data)
+    // })
+
+    // Button for Voting Down
+    function voteDown(e) {
+      axios.post(`/downvote/${e.target.id}`).then(response => {
+
+        document.getElementsByClassName(e.target.id)[0].innerHTML = response.data
+
+        //  document.getElementById(e.target.id)[0].innerHTML = response.data
+
+        const buttons = document.getElementsByClassName(e.target.id);
+
+        [...buttons].forEach(el => {
+          el.disabled = true;
+        })
+
       })
+    };
+    document.querySelectorAll(".downVote").forEach(el => {
+      el.addEventListener("click", voteDown)
+    });
 
-    })
-  };
-  document.querySelectorAll(".downVote").forEach(el => {
-    el.addEventListener("click", voteDown)
-  });
+    //Button for Voting Up
+    function voteUp(e) {
+      axios.post(`/vote/${e.target.id}`).then(response => {
+        document.getElementsByClassName(e.target.id)[0].innerHTML = response.data
 
-  //Button for Voting Up
-  function voteUp(e) {
-    axios.post(`/vote/${e.target.id}`).then(response => {
-      document.getElementsByClassName(e.target.id)[0].innerHTML = response.data
-      
-      console.log(document.getElementsByClassName(e.target.id))
+        console.log(document.getElementsByClassName(e.target.id))
 
 
-      const buttons = document.getElementsByClassName(e.target.id);
+        const buttons = document.getElementsByClassName(e.target.id);
 
-      [...buttons].forEach( el => {
-        el.disabled = true ;
+        [...buttons].forEach(el => {
+          el.disabled = true;
+        })
+
+        // if ( pressed === true ) 
       })
-
-      // if ( pressed === true ) 
-    })
-  }
-  document.querySelectorAll(".upVote").forEach(el => {
-    el.addEventListener("click", voteUp)
-  });
-</script>
+    }
+    document.querySelectorAll(".upVote").forEach(el => {
+      el.addEventListener("click", voteUp)
+    });
+  </script>
 
 </div>

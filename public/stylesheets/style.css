@@ -229,11 +229,15 @@ body {
 }
 
 #pickUpLine {
+  text-align: center;
   background-color: rgba(255, 255, 255, 0.9);
-  margin: 2%;
+  margin: 5%;
   padding: 1%;
   width: 40%;
   border-radius: 10px;
+}
+
+#pickUpLine a {
   
 }
 
@@ -248,9 +252,9 @@ body {
   align-items: center;
 }
 
-/*#pickUpLine h1 {
+/* #pickUpLine h1 {
   text-align: center;
-}*/
+}  */
 
 .quote {
   font-size: 2em;
@@ -262,7 +266,6 @@ body {
 .comment-image {
   width: 100%;
 }
-
 
 .content {
   font-size: 3em;
@@ -304,8 +307,6 @@ body {
   justify-content: center;
   margin-top: 200px;
 }
-
-
 
 .post-new form {
   display: flex;
@@ -436,4 +437,15 @@ body {
   font-size: 1.4em;
 }
 
+.link {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.link a{
+  text-decoration: none;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-size: 2em;
+}
 /*# sourceMappingURL=style.css.map */

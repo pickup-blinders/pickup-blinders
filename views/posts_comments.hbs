@@ -1,22 +1,25 @@
-<h1>{{user.username}}</h1>
-<a href="/feed/funny/best">Navigate to Feed</a>
-<br>
-<a href="/profile_posts/{{user._id}}">My Posts</a>
-<a href="/profile_comments/{{user._id}}">My Comments</a>
+
+<div class="link">
+  <a href="/feed/funny/best">Back to Feed</a>
+  <br>
+  <a href="/profile_posts/{{user._id}}">My Posts</a>
+  <a href="/profile_comments/{{user._id}}">My Comments</a>
+</div>
+
 
 {{#each user.comments}}
-<div id="pickUpLine">
-  <div>{{created_at}}</div>
-  <button class="upVote" id={{this._id}} score={{this.score}}>Up </button>
-  <button class="downVote" id={{this._id}} score={{this.score}}>Down</button>
-  <span class={{_id}}>{{score}}</span>
-  <h1>
-    {{this.content}}
-  </h1>
+  <div id="pickUpLine">
+    <div>{{created_at}}</div>
+    <button class="upVote" id={{this._id}} score={{this.score}}>Up </button>
+    <button class="downVote" id={{this._id}} score={{this.score}}>Down</button>
+    <span class={{_id}}>{{score}}</span>
+    <h1>
+      {{this.content}}
+    </h1>
 
-{{#if ../isUser}}
-  <a href="/comment/edit/{{this._id}}">Edit my Comment</a>
-{{/if}}
+    {{#if ../isUser}}
+    <a href="/comment/edit/{{this._id}}">Edit my Comment</a>
+    {{/if}}
 
-</div>
-{{/each}}
+  </div>
+  {{/each}}
