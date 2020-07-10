@@ -216,16 +216,14 @@ body {
   font-size: 1.5em;
 }
 
-#post-call {
-  position: fixed;
-  /* left: 97%; */
-  right: -95%;
-  bottom: 3%;
-}
 
-#post-call a {
+.image-feather {
+  position: fixed;
   text-decoration: none;
-  color: white
+  color: white;
+  right: 120px;
+  width: 8%;
+  bottom: 40px;
 }
 
 #pickUpLine {
@@ -283,9 +281,6 @@ body {
   width: 8%;
 }
 
-.image-feather {
-  width: 7%;
-}
 
 .arrow-up {
   width: 5%;
