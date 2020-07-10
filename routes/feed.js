@@ -9,36 +9,40 @@ const router = express.Router();
 
 // Sorted by Newest
 router.get('/feed/funny/newest', (req, res, next) => {
-  let name = req.user.username
+  let myProfile = req.user._id;
+  let name = req.user.username;
   Post.find({ category: "funny" }).sort({ created_at: -1 }).populate("userid").then(post => {
-    res.render('funny', { post: post, name });
+    res.render('funny', { post: post, name, myProfile });
   }).catch(err => {
     console.log(err)
   })
 });
 
 router.get('/feed/tinder/newest', (req, res, next) => {
+  let myProfile = req.user._id;
   let name = req.user.username
   Post.find({ category: "tinder" }).sort({ created_at: -1 }).populate("userid").then(post => {
-    res.render('funny', { post: post, name });
+    res.render('funny', { post: post, name, myProfile });
   }).catch(err => {
     console.log(err)
   })
 });
 
 router.get('/feed/cute/newest', (req, res, next) => {
+  let myProfile = req.user._id;
   let name = req.user.username
   Post.find({ category: "cute" }).sort({ created_at: -1 }).populate("userid").then(post => {
-    res.render('funny', { post: post, name });
+    res.render('funny', { post: post, name, myProfile });
   }).catch(err => {
     console.log(err)
   })
 });
 
 router.get('/feed/smart/newest', (req, res, next) => {
+  let myProfile = req.user._id;
   let name = req.user.username
   Post.find({ category: "smart" }).sort({ created_at: -1 }).populate("userid").then(post => {
-    res.render('funny', { post: post, name });
+    res.render('funny', { post: post, name, myProfile });
   }).catch(err => {
     console.log(err)
   })
@@ -47,12 +51,13 @@ router.get('/feed/smart/newest', (req, res, next) => {
 // Sorted by Rating
 
 router.get('/feed/funny/best', (req, res, next) => {
+  let myProfile = req.user._id;
   Post.find({ category: "funny" }).sort({ score: -1 }).populate("userid").then(posts => {
     const newPost = posts.map(post => {
       if (req.user.voted.includes(post._id)) {
 
         post.voted = true;
-       // console.log(post)
+        // console.log(post)
         return post
       } else {
         post.voted = false;
@@ -60,20 +65,21 @@ router.get('/feed/funny/best', (req, res, next) => {
 
       }
     })
-   // console.log(newPost);
-    res.render('funny', { post: newPost });
+    // console.log(newPost);
+    res.render('funny', { post: newPost, myProfile });
   }).catch(err => {
     console.log(err)
   })
 });
 
 router.get('/feed/tinder/best', (req, res, next) => {
+  let myProfile = req.user._id;
   Post.find({ category: "tinder" }).sort({ score: -1 }).populate("userid").then(posts => {
     const newPost = posts.map(post => {
       if (req.user.voted.includes(post._id)) {
 
         post.voted = true;
-       // console.log(post)
+        // console.log(post)
         return post
       } else {
         post.voted = false;
@@ -81,20 +87,21 @@ router.get('/feed/tinder/best', (req, res, next) => {
 
       }
     })
-   // console.log(newPost);
-    res.render('funny', { post: newPost });
+    // console.log(newPost);
+    res.render('funny', { post: newPost, myProfile });
   }).catch(err => {
     console.log(err)
   })
 });
 
 router.get('/feed/cute/best', (req, res, next) => {
+  let myProfile = req.user._id;
   Post.find({ category: "cute" }).sort({ score: -1 }).populate("userid").then(posts => {
     const newPost = posts.map(post => {
       if (req.user.voted.includes(post._id)) {
 
         post.voted = true;
-       // console.log(post)
+        // console.log(post)
         return post
       } else {
         post.voted = false;
@@ -102,20 +109,21 @@ router.get('/feed/cute/best', (req, res, next) => {
 
       }
     })
-   // console.log(newPost);
-    res.render('funny', { post: newPost });
+    // console.log(newPost);
+    res.render('funny', { post: newPost, myProfile });
   }).catch(err => {
     console.log(err)
   })
 });
 
 router.get('/feed/smart/best', (req, res, next) => {
+  let myProfile = req.user._id;
   Post.find({ category: "smart" }).sort({ score: -1 }).populate("userid").then(posts => {
     const newPost = posts.map(post => {
       if (req.user.voted.includes(post._id)) {
 
         post.voted = true;
-     //   console.log(post)
+        //   console.log(post)
         return post
       } else {
         post.voted = false;
@@ -124,7 +132,7 @@ router.get('/feed/smart/best', (req, res, next) => {
       }
     })
     //console.log(newPost);
-    res.render('funny', { post: newPost });
+    res.render('funny', { post: newPost, myProfile });
   }).catch(err => {
     console.log(err)
   })
@@ -158,13 +166,19 @@ router.post("/downvote/:id", (req, res) => {
 
 router.get('/profile_posts/:id', (req, res, next) => {
   User.findById(req.params.id).sort({ score: -1 }).populate("posts").then(user => {
-    if(user._id==req.user._id){
-      user.auth="yes"
+    // If correct user
+    let isUser = false;
+    if (user._id.toString() == req.user._id.toString()) {
+      isUser = true;
     }
-    else{
-      user.auth=null
+
+    if (user._id == req.user._id) {
+      user.auth = "yes"
     }
-    res.render('profile_posts', { user: user});
+    else {
+      user.auth = null
+    }
+    res.render('profile_posts', { user: user, isUser });
   }).catch(err => {
     console.log(err)
   })
@@ -174,8 +188,12 @@ router.get('/profile_posts/:id', (req, res, next) => {
 
 router.get('/profile_comments/:id', (req, res, next) => {
   User.findById(req.params.id).sort({ score: -1 }).populate("posts.comments").then(user => {
-
-    res.render('posts_comments', { user: user });
+    let isUser = false;
+    if (user._id.toString() == req.user._id.toString()) {
+      isUser = true;
+      // console.log(isUser)
+    }
+    res.render('posts_comments', { user: user, isUser });
   }).catch(err => {
     console.log(err)
   })
