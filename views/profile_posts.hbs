@@ -17,8 +17,8 @@
   </h1>
 
   {{!-- Editing Post --}}
-  
+  {{#if ../isUser}}
   <a href="/post/edit/{{this._id}}">Edit my Post</a>
-
+  {{/if}}
 </div>
 {{/each}}
