@@ -1,12 +1,18 @@
-<h1>This are the Post Comments</h1>
-<a href="/feed/funny/best">Navigate back to Feed</a>
+
+<div class="comments">
+<h1 class="comments-title">Feedback section</h1>
+<a class="back-feed" href="/feed/funny/best">Back to Feed</a>
+
 {{#each comment}}
-<h2>{{userid.username}}</h2>
-<h1>{{content}}</h1>
+<div class="comment">
+<h2 class="comment-author">{{userid.username}}</h2>
+<h1 class = "comment-content">{{content}}</h1>
+</div>
 {{/each}}
 
-<form action="/comments/{{ident}}" method = "POST">
-  <label for="content">Give feedback</label>
-  <input type="text" name= "content" id="content">
+<form class="comment-form" action="/comments/{{ident}}" method = "POST">
+  <input class = "comment-input" type="text" name= "content" id="content" placeholder="Give feedback about this line ;)">
   <button type="submit"> send </button>
 </form>
+
+</div>

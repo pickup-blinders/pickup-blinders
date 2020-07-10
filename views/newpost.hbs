@@ -1,8 +1,8 @@
 <div class="post-new">
   
   <form action="/new" method="post">
-    <label for="content">Type Your Pick up Line Here:</label>
-    <input id="new-line-input" type="text" name="content" id="content">
+  
+    <input id="new-line-input" type="text" name="content" id="content" placeholder="Type your best pickup line here !">
 
     <select name="category" id="category">
       <option value="funny">Funny</option>
@@ -10,7 +10,7 @@
       <option value="cute">Cute</option>
       <option value="smart">Smart</option>
     </select>
-    <button type="submit">Post a New Pickup Line</button>
+    <button type="submit">Post New Pickup Line</button>
   </form>
-  <a href="/feed/funny/best">Navigate back to Feed</a>
+  <a class ="back-feed" href="/feed/funny/best">Back to Feed</a>
 </div>
